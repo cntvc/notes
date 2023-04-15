@@ -1,0 +1,60 @@
+site_name: 芒草的梦呓
+site_url: https://cntvc.github.io
+repo_name: cntvc/cntvc.github.io
+repo_url: https://github.com/cntvc/cntvc.github.io
+
+site_author: cntvc@outlook.com
+
+theme:
+  name: material
+  features:
+    - search.highlight # 搜索突出显示
+    - navigation.sections
+    - navigation.top # 返回顶部按钮
+    - navigation.tabs
+    - navigation.tabs.sticky # 固定顶部导航栏
+    - navigation.tracking   # 锚点导航
+    - toc.follow  # 目录的锚点跟随
+
+    - content.code.copy
+#    - content.tabs.link     # 链接的内容选项卡
+  palette:  # 主题模式切换。
+    - media: "(prefers-color-scheme: light)"  # 跟随系统主题模式
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - footnotes
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+INHERIT: toc.yml
+
+plugins:
+  - search
+  - offline

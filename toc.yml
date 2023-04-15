@@ -1,0 +1,14 @@
+nav:
+- 主页: README.md
+- Linux:
+  - WSL2 使用window代理网络: linux/wsl2-proxy.md
+- Python: 
+  - pip 常用命令: python/pip-cmd.md
+  - Python 项目工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines
+  - 使用 pyinstaller 打包 exe 程序: python/use-pyinstaller-to-package-exe.md
+- Git:
+  - Git Commit 规范: git/commit-spec.md
+  - Git 常用命令: git/common-commands.md
+  - 本地多账户配置: git/local-multi-account-config.md
+- 外链:
+    links.md
