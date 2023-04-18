@@ -54,4 +54,4 @@ source ~/.proxy.sh set
 ## 三、开启代理工具代理网络功能
 以 Shadowsocks 为例，开启 “允许其他设备连入” 选项后可完成代理
 
-![pic](../../assets/linux/wsl2-proxy/ssr-setting.png)
+![pic](../assets/linux/wsl2-proxy/ssr-setting.png)

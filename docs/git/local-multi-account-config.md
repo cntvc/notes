@@ -19,7 +19,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 ssh-keygen -t rsa -b 4096 -C 'xxx@email.com' -f file_name
 ```
 
-![generator-sshkey](../../assets/git/local-mutil-account-config/gengrator_ssh_key_1.png)
+![generator-sshkey](../assets/git/local-mutil-account-config/gengrator_ssh_key_1.png)
 
 ## 三、配置到git仓库
 
@@ -75,7 +75,7 @@ Hi cary! You've successfully authenticated, but GitHub does not provide shell ac
 
 - 连接 git 仓库失败，提示私钥文件过于开放
 
-    >  ![bad-permissions](../../assets/git/local-mutil-account-config/gengrator_ssh_key_2.png)
+    >  ![bad-permissions](../assets/git/local-mutil-account-config/gengrator_ssh_key_2.png)
     >  
     >  原因：即文件权限过高，只保留读取权限即可
     >  
@@ -85,4 +85,4 @@ Hi cary! You've successfully authenticated, but GitHub does not provide shell ac
     >  chmod 400 private-key
     >  ```
     >  
-    >  ![chmod-400](../../assets/git/local-mutil-account-config/gengrator_ssh_key_3.png)
+    >  ![chmod-400](../assets/git/local-mutil-account-config/gengrator_ssh_key_3.png)
