@@ -7,4 +7,4 @@ build:
 clean:
 	rm -rf site
 
-all: preview
+all: build, preview

@@ -1,6 +1,11 @@
 name: gh-page build
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
 
 jobs:
   deploy:
