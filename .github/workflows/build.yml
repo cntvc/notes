@@ -1,45 +1,53 @@
-name: gh-page build
+name: gh-page
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - 'docs/**'
 
+
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+permissions:
+  contents: read
+  pages: write      # to deploy to Pages
+  id-token: write   # to verify the deployment originates from an appropriate source
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: 3
-      - name: Upgrade pip
-        run: |
-          python3 -m pip install --upgrade pip
-
-      - name: Get pip cache dir
-        id: pip-cache
-        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
-        run: python3 -m pip install -r ./requirements.txt
-
+          python-version: '3.10'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
       - run: mkdocs build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          path: ./site
+
+  deploy:
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
