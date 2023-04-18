@@ -145,7 +145,7 @@ pyinstaller --clean main.spec
 14674 INFO: Building EXE from EXE-00.toc completed successfully.
 ```
 
-### 4. 规范文件示例
+### 4. 完整项目的规范文件示例
 
 示例项目为一个多层级的目录结构，包名为 genshin，`main.py` 文件作为为程序入口，包含了一个配置模块 `config`，一个核心模块 `core`，同时还有资源目录 `resource` 
 
@@ -176,7 +176,7 @@ resource
 - 将默认的配置文件作为资源文件打包
 
 <details>
-  <summary> 修改完成的规范文件示例</summary>
+  <summary> 修改完成的文件 </summary>
    <p>
      
 ```Python title="main.spec"
