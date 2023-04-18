@@ -1,3 +1,5 @@
+all: build preview
+
 preview:
 	mkdocs serve
 
@@ -6,5 +8,3 @@ build:
 
 clean:
 	rm -rf site
-
-all: build, preview
