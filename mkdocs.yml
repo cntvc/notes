@@ -6,6 +6,21 @@ repo_url: https://github.com/cntvc/notes
 site_author: cntvc@outlook.com
 
 theme:
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+    repo: fontawesome/brands/github
   name: material
   features:
     - search.highlight # 搜索突出显示
@@ -16,7 +31,7 @@ theme:
     - navigation.tracking   # 锚点导航
     - toc.follow  # 目录的锚点跟随
 
-    - content.code.copy
+    - content.code.copy # 代码复制按钮
 #    - content.tabs.link     # 链接的内容选项卡
   palette:  # 主题模式切换。
     - media: "(prefers-color-scheme: light)"  # 跟随系统主题模式
@@ -29,11 +44,10 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-  icon:
-    repo: fontawesome/brands/github
+
 
 markdown_extensions:
-  - footnotes
+  - footnotes # 脚注
   - admonition
   - pymdownx.details
   - pymdownx.superfences
@@ -42,12 +56,13 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.mark
   - pymdownx.tilde
-  - attr_list
+  - attr_list # 将链接变为按钮
   - md_in_html
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tabbed:
       alternate_style: true
+  # 代码块启用语法高亮显示
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
