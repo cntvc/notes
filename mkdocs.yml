@@ -72,4 +72,3 @@ INHERIT: toc.yml
 
 plugins:
   - search
-  - offline
