@@ -1,0 +1,13 @@
+nav:
+- 主页: README.md
+- Linux:
+  - GPG: linux/gpg.md
+  - WSL2 使用 Window 代理网络: linux/wsl2-proxy.md
+  - Vim 配置: linux/vim-config.md
+- Python: 
+  - 使用 pyinstaller 打包 exe 程序: python/use-pyinstaller-to-package-exe.md
+  - Python 项目工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines
+- Tools:
+  - Clash 代理: tools/clash-proxy.md
+- 外链:
+    links.md
