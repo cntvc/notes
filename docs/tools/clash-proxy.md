@@ -1,6 +1,6 @@
 # Clash 代理
 
-### Clash for Windows 对订阅的源进行预处理
+## Clash for Windows 对订阅的源进行预处理
 
 ```yml
 parsers: # array
@@ -146,3 +146,65 @@ parsers: # array
             path: ./ruleset/reject.yaml
             interval: 86400
 ```
+
+## WSL2 使用 Windows 代理网络
+
+### 方法一: 配置 HTTP(S)/SOCKS5 代理
+
+- 开启 Clash for Windows 的局域网访问
+- 在 WSL2 中配置 HTTP(S)/SOCKS5 代理
+
+#### 1. 新建文件 `proxy.sh`
+
+```bash
+hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
+wslip=$(hostname -I | awk '{print $1}')
+port=1080
+PROXY_SOCKS="http://${hostip}:${port}"
+
+function display() {
+    echo "Host ip: ${hostip}"
+    echo "WSL client ip: ${wslip}"
+    echo "current PROXY: ${PROXY_SOCKS}"
+}
+
+function set_proxy() {
+    export http_proxy="${PROXY_SOCKS}"
+    export https_proxy="${PROXY_SOCKS}"
+    echo "env http/https proxy set."
+}
+
+function unset_proxy() {
+    unset http_proxy
+    unset https_proxy
+    echo "env proxy unset."
+}
+
+function test_proxy() {
+    curl -vv www.google.com
+}
+
+if [ "$1" = "show" ]; then
+    display
+elif [ "$1" = "set" ]; then
+    set_proxy
+elif [ "$1" = "unset" ]; then
+    unset_proxy
+elif [ "$1" = "test" ]; then
+    test_proxy
+else
+    echo "incorrect arguments."
+fi
+```
+
+#### 2. 修改 `.bashrc` 文件
+```bash
+# proxy in terminal
+alias proxy="source ~/proxy.sh"
+source ~/proxy.sh set
+```
+
+
+### 方法二: 使用 TUN 模式代理
+- 开启 Clash for Windows 的 TUN 模式
+- 配置 UWP 应用的联网限制，放行 WSL2
