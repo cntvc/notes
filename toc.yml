@@ -6,6 +6,8 @@ nav:
 - Python: 
   - 使用 pyinstaller 打包 exe 程序: python/use-pyinstaller-to-package-exe.md
   - Python 项目工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines
+- Security:
+  - Steam 游戏激活脚本分析: security/steam-activation-script-analysis.md
 - Tools:
   - Clash 代理: tools/clash-proxy.md
 - 外链:
