@@ -1,0 +1,89 @@
+# https://squidfunk.github.io/mkdocs-material/
+
+site_name: 芒草的梦呓
+site_url: https://cntvc.github.io/notes
+repo_name: cntvc/notes
+repo_url: https://github.com/cntvc/notes
+
+site_author: cntvc@outlook.com
+
+theme:
+  name: material
+  features:
+    - search.highlight # 搜索突出显示
+    - navigation.instant # 实时加载
+    - navigation.instant.progress # 页面加载进度条
+    - navigation.top # 返回顶部按钮
+    - navigation.tabs
+    - navigation.indexes 
+    - navigation.tracking   # 锚点跟踪
+    - toc.follow  # 目录的锚点跟踪
+    - content.code.copy # 代码复制按钮
+    - content.code.annotate
+    - content.tooltips
+    - navigation.footer
+  palette:  # 主题模式切换。
+    - media: "(prefers-color-scheme: light)"  # 跟随系统主题模式
+      scheme: default
+      accent: light blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  icon:
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - footnotes # 脚注
+  - admonition # 提示框等
+  - pymdownx.details # 折叠块
+  - pymdownx.caret 
+  - pymdownx.mark
+  - pymdownx.tilde # 删除线
+  - pymdownx.critic # 突出显示修改内容
+  - pymdownx.keys
+  - pymdownx.magiclink # 自动将URL转换为可点击的链接
+  - attr_list # 将链接变为按钮
+  - md_in_html # 允许 HTML 标签
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed: # 内容选项卡
+      alternate_style: true
+  - pymdownx.highlight: # 代码块启用语法高亮显示
+      anchor_linenums: true
+      linenums: true
+      linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences # 内容块嵌套
+
+INHERIT: toc.yml
+
+plugins:
+  - search
+  - blog:
+      post_date_format: yyyy-MM-dd
+      post_url_date_format: yyyy/MM/dd
+      archive_date_format: yyyy-MM
+      pagination_per_page: 10
+      authors: true
+extra_css:
+  - stylesheets/extra.css

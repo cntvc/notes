@@ -1,0 +1,21 @@
+nav:
+- Home: README.md
+- Linux:
+  - linux/index.md
+  - GPG: linux/gpg.md
+  - Vim 配置: linux/vim-config.md
+  - WSL2 使用 Windows 代理: linux/wsl2-proxy.md
+- Python: 
+  - python/index.md
+  - 使用 pyinstaller 打包 exe 程序: python/use-pyinstaller-to-package-exe.md
+  - Python 项目工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines
+- Security:
+  - security/index.md
+  - Steam 游戏激活脚本分析: security/steam-activation-script-analysis.md
+- Tools:
+  - tools/index.md
+  - Clash 代理: tools/clash-proxy.md
+- Links:
+    links.md
+- Blog:
+    - blog/index.md
