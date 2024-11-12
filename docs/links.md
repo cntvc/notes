@@ -1,3 +1,0 @@
-- [晓风轻技术小站](https://xwjie.github.io/)
-- [CoolShell](https://coolshell.cn/)
-- [阮一峰的网络日志](https://www.ruanyifeng.com/blog/)

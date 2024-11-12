@@ -1,21 +1,26 @@
 nav:
-- Home: README.md
-- Linux:
-  - linux/index.md
-  - GPG: linux/gpg.md
-  - Vim 配置: linux/vim-config.md
-  - WSL2 使用 Windows 代理: linux/wsl2-proxy.md
-- Python: 
-  - python/index.md
-  - 使用 pyinstaller 打包 exe 程序: python/use-pyinstaller-to-package-exe.md
-  - Python 项目工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines
-- Security:
-  - security/index.md
-  - Steam 游戏激活脚本分析: security/steam-activation-script-analysis.md
-- Tools:
-  - tools/index.md
-  - Clash 代理: tools/clash-proxy.md
-- Links:
-    links.md
-- Blog:
+- 主页: README.md
+
+- 博客:
     - blog/index.md
+
+- 开发:
+    - dev/index.md
+    - Linux:
+      - dev/linux/index.md
+      - WSL2 配置: dev/linux/wsl2-config.md
+    - C++:
+      - dev/c++/index.md
+      - 开发环境配置: dev/c++/dev-env-config.md
+    - Python:
+      - dev/python/index.md
+      - Python 工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines/
+      - 使用 Pyinstaller 打包 exe: dev\python\use-pyinstaller-to-package-exe.md
+    - Windows:
+      - dev/windows/index.md
+      - 常用命令: dev/windows/command.md
+
+- 工具:
+    - tools/index.md
+    - 代理工具: tools/proxy.md
+    - GPG: tools/gpg.md

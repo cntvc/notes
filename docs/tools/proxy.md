@@ -1,6 +1,142 @@
 # Clash 代理
 
-## Clash for Windows 对订阅的源进行预处理
+## clash-verge-rev 全局扩展脚本
+
+```JavaScript
+// Define main function (script entry)
+
+// 规则集通用配置
+const ruleProviderCommon = {
+    "type": "http",
+    "format": "yaml",
+    "interval": 86400
+};
+
+
+const ruleProviders = {
+    "reject": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt",
+        "path": "./ruleset/loyalsoldier/reject.yaml"
+    },
+    "icloud": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt",
+        "path": "./ruleset/loyalsoldier/icloud.yaml"
+    },
+    "apple": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt",
+        "path": "./ruleset/loyalsoldier/apple.yaml"
+    },
+    "google": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt",
+        "path": "./ruleset/loyalsoldier/google.yaml"
+    },
+    "proxy": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt",
+        "path": "./ruleset/loyalsoldier/proxy.yaml"
+    },
+    "direct": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt",
+        "path": "./ruleset/loyalsoldier/direct.yaml"
+    },
+    "private": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt",
+        "path": "./ruleset/loyalsoldier/private.yaml"
+    },
+    "gfw": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt",
+        "path": "./ruleset/loyalsoldier/gfw.yaml"
+    },
+    "tld-not-cn": {
+        ...ruleProviderCommon,
+        "behavior": "domain",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt",
+        "path": "./ruleset/loyalsoldier/tld-not-cn.yaml"
+    },
+    "telegramcidr": {
+        ...ruleProviderCommon,
+        "behavior": "ipcidr",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt",
+        "path": "./ruleset/loyalsoldier/telegramcidr.yaml"
+    },
+    "cncidr": {
+        ...ruleProviderCommon,
+        "behavior": "ipcidr",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt",
+        "path": "./ruleset/loyalsoldier/cncidr.yaml"
+    },
+    "lancidr": {
+        ...ruleProviderCommon,
+        "behavior": "ipcidr",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt",
+        "path": "./ruleset/loyalsoldier/lancidr.yaml"
+    },
+    "applications": {
+        ...ruleProviderCommon,
+        "behavior": "classical",
+        "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
+        "path": "./ruleset/loyalsoldier/applications.yaml"
+    }
+}
+
+
+const customRules = [
+]
+
+
+const rules = [
+    ...customRules,
+    // Loyalsoldier 规则集
+    "RULE-SET,applications,DIRECT",
+    "RULE-SET,private,DIRECT",
+    "RULE-SET,reject,REJECT",
+    "RULE-SET,icloud,DIRECT",
+    "RULE-SET,apple,DIRECT",
+    "RULE-SET,google,PROXY",
+    "RULE-SET,proxy,PROXY",
+    "RULE-SET,direct,DIRECT",
+    "RULE-SET,lancidr,DIRECT",
+    "RULE-SET,cncidr,DIRECT",
+    "RULE-SET,telegramcidr,PROXY",
+    "GEOIP,LAN,DIRECT,no-resolve",
+    "GEOIP,CN,DIRECT,no-resolve",
+    "MATCH,PROXY"
+];
+
+
+function main(config, profileName) {
+    config["proxy-groups"] = [];
+    var select = {
+        name: "PROXY",
+        type: "select",
+        proxies: [],
+    }
+    select.proxies = config.proxies.map((proxy) => proxy.name);
+    config["proxy-groups"].push(select)
+
+    config["rule-providers"] = ruleProviders;
+    config["rules"] = rules;
+
+    return config;
+}
+```
+
+## Clash for Windows 预处理配置
 
 ```yml
 parsers: # array
@@ -140,3 +276,8 @@ parsers: # array
           path: ./ruleset/applications.yaml
           interval: 86400
 ```
+
+## 常见问题
+### 无梯子无法访问域名 cdn.jsdelivr.net 
+
+> 尝试将域名替换为 `testingcf.jsdelivr.net`
