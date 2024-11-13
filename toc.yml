@@ -15,7 +15,7 @@ nav:
     - Python:
       - dev/python/index.md
       - Python 工程化开发指南: https://pyloong.github.io/pythonic-project-guidelines/
-      - 使用 Pyinstaller 打包 exe: dev\python\use-pyinstaller-to-package-exe.md
+      - 使用 Pyinstaller 打包 exe: dev/python/use-pyinstaller-to-package-exe.md
     - Windows:
       - dev/windows/index.md
       - 常用命令: dev/windows/command.md

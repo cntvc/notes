@@ -148,9 +148,16 @@ pyinstaller --clean main.spec --noconfirm
 
 建议在虚拟环境中进行打包
 
-!!! 注意
-    如果你在全局环境安装了pyinstaller，在程序的虚拟环境也安装了pyinstaller包，那么在虚拟环境中运行打包命令时，仍然使用的是全局环境的python，这会导致一些无关的包被捆绑进来
-
+```powershell
+# 使用内置 venv 模块创建虚拟环境
+python -m venv .venv
+# 激活虚拟环境
+.venv\Scripts\activate
+# 安装 pyinstaller
+pip install pyinstaller
+# 打包
+pyinstaller -F main.spec
+```
 
 ### 2. 打包后提示找不到资源文件
 

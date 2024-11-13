@@ -2,8 +2,6 @@
 
 ## 使用配置文件指定参数
 
-更多配置项见[官方链接](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig)
-
 ```txt
 [wsl2]
 memory=4GB
@@ -20,6 +18,8 @@ guiApplications=false
 autoMemoryReclaim=gradual 
 sparseVhd=true
 ```
+
+更多配置项见[官方链接](https://learn.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig)
 
 
 ## WSL2 使用 Windows 代理网络
