@@ -1,6 +1,6 @@
 # Clash 代理
 
-## clash-verge-rev 全局扩展脚本
+## [clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev) 全局扩展脚本
 
 ```JavaScript
 // Define main function (script entry)
@@ -278,6 +278,6 @@ parsers: # array
 ```
 
 ## 常见问题
-### 无梯子无法访问域名 cdn.jsdelivr.net 
+### 未开启代理时无法访问域名 cdn.jsdelivr.net 
 
 > 尝试将域名替换为 `testingcf.jsdelivr.net`
