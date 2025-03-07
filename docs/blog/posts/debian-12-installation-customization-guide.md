@@ -8,6 +8,8 @@ authors:
 
 <!-- more -->
 
+本文介绍在华硕笔记本安装 Debian 和 Windows 双系统后的一些必要配置及步骤。
+
 ## 个性化配置
 
 ### 将当前用户加入 sudo 用户组
@@ -102,33 +104,30 @@ GRUB_DISABLE_OS_PROBER=true
 sudo update-grub
 ```
 
-### 开启键盘背光
-```bash
-sudo apt install brightnessctl -y
-brightnessctl -l # 查看设备
-# 找到键盘背光设备名称，此处为华硕键盘背光设备
-brightnessctl -d asus::kbd_backlight s 3
-```
 
 ### 设置电池充电上限
+
+华硕笔记本电脑修改文件 `/sys/class/power_supply/BAT0/charge_control_end_threshold` 中数字即可设置电池充电上限
+
+将该过程保存为 sh 脚本文件并赋予可执行权限
 ```bash
-curl -LO https://github.com/tshakalekholoane/bat/releases/latest/download/bat
+`echo 60 > /sys/class/power_supply/BAT0/charge_control_end_threshold`
+```
 
-sudo mv ./bat /usr/local/bin/bat
-sudo chmod +x /usr/local/bin/bat
-
-sudo bat threshold 60
-sudo bat persist
+```bash
+sudo crontab -e
+# 自定义脚本路径
+@reboot /path/to/script.sh
 ```
 
 ### 安装 Neovim 并设置为默认编辑器
 ```bash
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux64.tar.gz
-sudo ln -s /opt/nvim-linux64/bin/nvim /usr/bin/nvim
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/bin/nvim
 
-sudo update-alternatives --install /usr/bin/editor editor /opt/nvim-linux64/bin/nvim 50
+sudo update-alternatives --install /usr/bin/editor editor /opt/nvim-linux-x86_64/bin/nvim 50
 sudo apt remove nano vim-tiny
 ```
 
@@ -146,7 +145,6 @@ sudo apt remove nano vim-tiny
 
 
 ### 配置 Fcitx5 输入法
-https://fcitx-im.org/wiki/Install_Fcitx_5/zh-cn
 
 https://muzing.top/posts/3fc249cf/
 
@@ -177,7 +175,7 @@ sudo apt install dbus-x11 -y
 
 ```bash
 grub> ls                     # 查看所有分区(硬盘和分区)
-grub> ls (hd1,gpt3)/         # 比如查看第一块硬盘的第一个分区（msdos1)的根目录
+grub> ls (hd1,gpt3)/         # 比如查看第一块硬盘的第三个gpt分区（gpt3）的根目录
 grub> set root=(hd1,gpt3)
 grub> linux /boot/vmlinuz-6.1.0-12-amd64 root=/dev/nvme1n1p3
 grub> initrd /boot/initrd.img-6.1.0-12-amd64

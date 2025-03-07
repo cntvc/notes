@@ -91,16 +91,32 @@ const ruleProviders = {
         "behavior": "classical",
         "url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt",
         "path": "./ruleset/loyalsoldier/applications.yaml"
+    },
+    "spotifyAds":{
+        "type": "http",
+        "format": "text",
+        "interval": 86400,
+        "behavior": "domain",
+        "url": "https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/main/Lists/pi-hole.txt",
+        "path": "./ruleset/Isaaker/spotifyAds.text"
     }
 }
 
-
-const customRules = [
+customRules = [
+    // spotify whitelist
+    "DOMAIN,login5.spotify.com,PROXY",
+    "DOMAIN,spclient.wg.spotify.com,PROXY",
+    "DOMAIN,open.spotify.com,PROXY",
+    "DOMAIN,api-partner.spotify.com,PROXY",
+    "DOMAIN,partners.wg.spotify.com,PROXY",
+    "DOMAIN,api.spotify.com,PROXY",
+    "DOMAIN,audio4-fa.scdn.co,PROXY",
+    "DOMAIN,seektables.scdn.co,PROXY",
 ]
-
 
 const rules = [
     ...customRules,
+    "RULE-SET,spotifyAds,REJECT",
     // Loyalsoldier 规则集
     "RULE-SET,applications,DIRECT",
     "RULE-SET,private,DIRECT",
@@ -110,8 +126,8 @@ const rules = [
     "RULE-SET,google,PROXY",
     "RULE-SET,proxy,PROXY",
     "RULE-SET,direct,DIRECT",
-    "RULE-SET,lancidr,DIRECT",
-    "RULE-SET,cncidr,DIRECT",
+    "RULE-SET,lancidr,DIRECT,no-resolve",
+    "RULE-SET,cncidr,DIRECT,no-resolve",
     "RULE-SET,telegramcidr,PROXY",
     "GEOIP,LAN,DIRECT,no-resolve",
     "GEOIP,CN,DIRECT,no-resolve",

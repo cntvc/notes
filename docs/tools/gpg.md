@@ -44,3 +44,13 @@ gpg: [stdin]: clear-sign failed: Inappropriate ioctl for device
 ```bash
 echo "test" | gpg --clearsign
 ```
+
+## 设置 gpg-agent 密钥过期时间
+建立文件 `$HOME/.gunpg/gpg-agent.conf`
+
+```conf
+default-cache-ttl 259200 # 单位秒
+max-cache-ttl 864000
+```
+
+设置后需要重启 gpg-agent 进程

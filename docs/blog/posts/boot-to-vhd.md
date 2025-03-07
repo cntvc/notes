@@ -79,7 +79,9 @@ bcdboot v:\windows /s S: /f UEFI
 
 ### 为双系统添加单独的 UEFI 启动项
 
-这里使用 EasyUEFI 和 BOOTICE 编辑和修改启动项，Windows 系统下也可以使用其他工具。
+Windows 双系统启动时，会显示两个可选启动项，如果想启动时跳过选择步骤引导默认系统但保留双系统，可以单独为 VHDX 系统添加一个 UEFI 启动项
+
+这里使用 EasyUEFI 和 BOOTICE 编辑和修改启动项，也可以自行使用其他工具修改
 
 在第4步中，添加了将新系统添加为可选启动项后，首先使用 EasyUEFI 进入 EFI 系统分区资源管理器，将 Windows 启动项文件夹全部拷贝出来，命名为 WinGuest，使用 BOOTICE 编辑 WinGuest/Boot/BCD 文件，删除当前系统启动项，只保留 vhdx 启动项。
 ![edit-boot](../assets/boot-to-vhd-edit-boot.png)
