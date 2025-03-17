@@ -71,7 +71,7 @@ bcdboot v:\windows /s S: /f UEFI
 #### 启动到 VHDX 时，引导失败无法启动系统
 **可能是由于系统找不到磁盘驱动器**
 
-方案一：将 IRST 驱动程序或者 AHCI 驱动手动注入到 VHDX 磁盘中，根据电脑型号在官网找对应磁盘驱动程序，然后使用 Dism++ 注入驱动。
+方案一：将 IRST 驱动程序手动注入到 VHDX 磁盘中，根据电脑型号在官网找对应磁盘驱动程序，然后使用 Dism++ 注入驱动。
 
 方案二：在 BIOS 中关闭 Intel Volume Management Device (VMD) 技术
 > 注：关闭VMD技术将会导致您的电脑无法使用 RAID 磁盘阵列
@@ -79,19 +79,40 @@ bcdboot v:\windows /s S: /f UEFI
 
 ### 为双系统添加单独的 UEFI 启动项
 
-Windows 双系统启动时，会显示两个可选启动项，如果想启动时跳过选择步骤引导默认系统但保留双系统，可以单独为 VHDX 系统添加一个 UEFI 启动项
+Windows 双系统启动时，会显示两个可选启动项，此时引导配置位于同一个文件中，可以将 BCD 配置文件分离以单独引导
 
-这里使用 EasyUEFI 和 BOOTICE 编辑和修改启动项，也可以自行使用其他工具修改
+#### 添加启动项
+这里使用 BOOTICE 工具编辑启动项
 
-在第4步中，添加了将新系统添加为可选启动项后，首先使用 EasyUEFI 进入 EFI 系统分区资源管理器，将 Windows 启动项文件夹全部拷贝出来，命名为 WinGuest，使用 BOOTICE 编辑 WinGuest/Boot/BCD 文件，删除当前系统启动项，只保留 vhdx 启动项。
+以管理员权限打开终端
+```powershell
+# 在引导分区创建一个目录存放引导文件
+mkdir F:\EFI\WinGuest
+
+# 复制引导文件到该目录
+xcopy V:\Windows\Boot\EFI\* F:\EFI\WinGuest /H /E 
+```
+
+使用 BOOTICE 新建一个 BCD 文件保存到 WinGuest/BCD 并添加新启动项
+
+- 设备类型选择vhd
+- 启动磁盘和启动分区选择vhdx所在磁盘
+- 设备文件选择vhdx路径(**注意去掉盘符**)
+- 菜单标题可自定义
+
 ![edit-boot](../assets/boot-to-vhd-edit-boot.png)
 
-> 对于当前系统，依次打开 “系统配置”-“引导”选项，删除 vhdx 磁盘启动项即可。
-> ![sys-config](../assets/boot-to-vhd-sys-config.png)
 
-然后将 WinGuest 文件夹使用 EasyUEFI 上传 EFI 系统分区中，再打开"管理EFI启动项"菜单，添加一条新的启动项，选择 /EFI/WinGuest/Boot/bootmgfw.efi 作为引导文件即可。
+#### 添加 UEFI 引导项
+BOOTICE 添加一个 UEFI 引导项，文件选择 \EFI\WINGUEST\BOOTMGFW.EFI
+然后将 WinGuest 文件夹使用 EasyUEFI 上传 EFI 系统分区中，再打开"管理EFI启动项"菜单，添加一条新的启动项
 
-![efi-dir](../assets/boot-to-vhd-WinGuest-dir.png)
+- 启动磁盘选择引导分区所在磁盘
+- 启动分区选择引导分区
+- 引导文件选择 /EFI/WinGuest/Boot/bootmgfw.efi
 
 ![add-uifi](../assets/boot-to-vhd-WInGuest-UEFI.png)
 
+#### 移除当前系统的额外引导项
+搜索打开 “系统配置”-“引导”选项，删除 vhdx 磁盘启动项即可
+![sys-config](../assets/boot-to-vhd-sys-config.png)
