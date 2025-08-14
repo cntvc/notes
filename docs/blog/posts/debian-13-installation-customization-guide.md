@@ -59,9 +59,6 @@ xdg-user-dirs-gtk-update
 ### 自定义引导设置
 
 ```ini title="/etc/default/grub"
-# 关闭 Grub 引导时间
-GRUB_TIMEOUT=0
-
 # 关闭检测和引导其他系统（如果安装了多系统）
 GRUB_DISABLE_OS_PROBER=true
 ```
@@ -91,16 +88,9 @@ sudo crontab -e
 ```bash
 sudo apt install neovim
 
-sudo update-alternatives --install /usr/bin/editor editor /opt/nvim-linux-x86_64/bin/nvim 50
-sudo apt remove vim-tiny
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 40
+sudo apt remove vim-tiny nano
 ```
-
-### 常用软件推荐
-
-- gnome-tweaks
-- NTQQ
-- KeepassXC
-- VLC
 
 ### Gnome 常用插件
 
@@ -112,20 +102,13 @@ sudo apt remove vim-tiny
 | [Places Status Indicator](https://extensions.gnome.org/extension/8/places-status-indicator/) | 添加菜单以快速导航系统中的位置 |
 | [Auto Move Windows](https://extensions.gnome.org/extension/16/auto-move-windows/)            | 自动移动窗口                   |
 | [Appindicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)     | 显示应用程序托盘图标           |
-| [User Themes](https://extensions.gnome.org/extension/19/user-themes/)                        | 自定义主题                     |
 
-### 配置 Rime 输入法
+### 配置 Rime 输入法 + 雾凇拼音
 
 ```bash
 sudo apt-get install ibus-rime
 
-ibus-setup
-```
-
-### 设置常用软件别名
-
-```bash
-sudo ln -s /usr/bin/gnome-text-editor /usr/bin/gedit
+git clone --depth 1 https://github.com/iDvel/rime-ice
 ```
 
 ## 安装问题及解决方案
