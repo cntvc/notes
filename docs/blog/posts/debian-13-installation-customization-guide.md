@@ -10,6 +10,30 @@ authors:
 
 本文介绍在华硕笔记本安装 Debian 和 Windows 双系统后的一些必要配置及步骤。
 
+## 安装最小化 Gnome 桌面环境
+
+1. 在选择软件安装步骤选择桌面环境时取消任何桌面环境，只选择系统工具
+
+2. 进入系统后只有终端界面，此时挂载ISO文件作为apt源
+```bash
+sudo mount -o loop /path/debian-13-amd64-DVD-1.iso /mnt/debian-iso
+```
+编辑 apt 源文件添加挂载的目录条目
+```bash title="/etc/apt/source.list"
+deb [trusted=yes] file:/mnt/debian-iso trixie main contrib non-free non-free-firmware
+```
+
+3. 修改 apt 配置使其默认不安装推荐包和建议包
+```bash title="/etc/apt/apt.conf"
+APT::Install-Recommends "false";
+APT::Install-Suggests "false";
+```
+
+4. 安装 Gnome
+```bash
+sudo apt install gnome-core
+```
+
 ## 个性化配置
 
 ### 将当前用户加入 sudo 用户组
@@ -20,17 +44,17 @@ sudo usermod -aG sudo $USER
 
 ### 配置 apt 源为国内源
 
-选择[UTSC 镜像源](https://mirrors.ustc.edu.cn/help/debian.html)，创建一个文件 `/etc/apt/sources.list.d/debian.sources` ，并写入以下内容
+选择[腾讯云镜像源](https://mirrors.tencent.com)，创建一个文件 `/etc/apt/sources.list.d/debian.sources` ，并写入以下内容
 
 ```bash
 Types: deb
-URIs: http://mirrors.ustc.edu.cn/debian
+URIs: https://mirrors.tencent.com/debian
 Suites: trixie trixie-updates
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
 Types: deb
-URIs: http://mirrors.ustc.edu.cn/debian-security
+URIs: https://mirrors.tencent.com/debian-security
 Suites: trixie-security
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg

@@ -163,7 +163,7 @@ DNS 挑战原理：Let’s Encrypt 通过验证域名下的 TXT 记录来确认�
 ```Dockerfile
 FROM caddy:builder AS builder
 RUN xcaddy build --with github.com/caddy-dns/cloudflare
-FROM caddy:2
+FROM caddy:latest
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 ```
 
@@ -292,4 +292,35 @@ services:
 然后登录 Cloudflare 的 Zero Trust 仪表板，选择 网络 -> Tunnels，根据向导创建隧道并安装连接器
 **注意配置域时 URL 端口与 docker 容器映射的端口必须一致**
 
+## SMTP 转发平台推荐
 
+我尝试过以下几个邮箱的 SMTP 服务
+
+- Dynadot域名邮箱服务：免费版未开放 SMTP 功能
+- QQ 邮箱：开始几封测试邮件可以成功发送，后续总提示有敏感词导致发送失败，因此放弃
+- Gmail：国内云服务器连通性不太好，时好时坏，遂放弃
+- Brevo：国内连通性良好，但注册过程比较曲折，不过最终还是选择这个平台
+> Brevo 主要业务是用来定制群发的营销邮件，免费用户每天可以发送 300 封邮件，并且支持设置自定义域名邮箱
+> 注册时我遇到主要有两个问题
+> 
+> 一是目前注册流程中需要验证手机号，但是 +86 手机无法收到短信或者语音验证码，最后是通过工单来让客服手动完成这个步骤
+> 
+> 二是注册完账号后立刻被风控了，通过工单多次沟通，我猜测可能是由于注册时 IP 地址是 VPN 出口，被识别为重复注册的账户，解释一番后仍未解封，但他们**单独解封了账号的 SMTP 功能**
+>
+> 另外：他们的工单响应速度非常快，通常10分钟内就会有回复，相比于我用过的其他国外的服务，可以说是秒回了
+
+
+
+## 一些推荐设置
+
+下面这些功能可以通过设置环境变量的方式来启停
+
+|设置项|功能|推荐值|备注|
+|:--:|:--:|:--:|:--:|
+|TRASH_AUTO_DELETE_DAYS|垃圾箱自动删除日期|90||
+|SIGNUPS_ALLOWED|允许注册|false|开启的话任何人都能注册|
+|INVITATIONS_ALLOWED|允许邀请|false|注册和邀请同时关闭后，只能通过管理员邀请来新增用户|
+|SHOW_PASSWORD_HINT|显示密码提示|false|可能会成为泄露密码的一个途径|
+
+
+## 数据备份方案
