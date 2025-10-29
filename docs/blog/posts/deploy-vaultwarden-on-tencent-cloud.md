@@ -13,8 +13,9 @@ authors:
 ## 前期准备
 
 ### 1. 云服务器购买与配置
+   Vaultwarden 服务对硬件要求较低，1核CPU、512MB 内存的配置即可满足中小规模使用
    
-   本文使用的是腾讯云轻量云服务器，操作系统选择 Debian13。Vaultwarden 服务对硬件要求较低，1核CPU、512MB 内存的配置即可满足中小规模使用
+   本文使用的是腾讯云轻量云服务器，操作系统选择 Debian13
 
 ### 2. 域名购买和解析
    
@@ -23,18 +24,18 @@ authors:
 ### 3. 国内访问与备案要求
    - 中国大陆境内云服务器提供互联网信息服务时必须备案，未备案时通过域名访问服务会被阻断，具体表现是：通过 http 访问会被重定向到一个备案页面， 通过 https 访问时会被注入一个 TCP reset 包
    - 如果主要在国内使用，并希望通过公网直连，建议域名和云服务器均在国内云服务商处购买并完成备案，这样在国内访问服务的延迟低且稳定性高
-   - 如果由于某些原因不希望备案，可以通过隧道+反代的方式绕过限制，本文采用了 Cloudflare Tunnel + 反向代理方式绕过限制，实现 HTTPS 的安全访问
+   - 如果由于某些原因不希望备案，可以通过隧道+反代等其他方案绕过限制，本文采用了 Cloudflare Tunnel + 反向代理方式绕过限制，实现 HTTPS 的安全访问
 
 
 ## 环境配置
 
-官方从 **1.17.0** 版本开始提供了单一的 Docker 镜像，使部署与后续维护更加简洁高效。本文采用 Docker Compose 方式部署 Vaultwarden 服务
+Vaultwarden 官方从 **1.17.0** 版本开始提供了单一的 Docker 镜像，使部署与后续维护更加简洁高效。本文采用 Docker Compose 方式部署服务
 
 ### 1. 安装 docker
   
-  由于国内云服务器访问外网速度较慢，建议在安装 Docker 前**配置镜像加速源**，以避免镜像拉取超时或失败
+  由于国内云服务器访问外网不太稳定，建议在安装 Docker 前配置**镜像加速源**，以免 docker 镜像拉取失败
 
-  请参考腾讯云官方文档：[安装 Docker 并配置镜像加速源](https://cloud.tencent.com/document/product/1207/45596)
+  具体步骤请参考腾讯云官方文档：[安装 Docker 并配置镜像加速源](https://cloud.tencent.com/document/product/1207/45596)
 
 ### 2. 创建独立用户用于运行 Vaultwarden 服务
   为增强安全性，建议不要使用 root 用户直接运行容器服务
@@ -282,14 +283,17 @@ services:
     container_name: vaultwarden
     restart: always
     environment:
-      SIGNUPS_ALLOWED: "true" # Deactivate this with "false" after you have created your account so that no strangers can register
+      SIGNUPS_ALLOWED: "true" 
     volumes:
-      - ./vw-data:/data # the path before the : can be changed
+      # the path before the : can be changed
+      - ./vw-data:/data 
     ports:
-      - 11001:80 # you can replace the 11001 with your preferred port
+      # you can replace the 11001 with your preferred port
+      - 11001:80 
 ```
 
 然后登录 Cloudflare 的 Zero Trust 仪表板，选择 网络 -> Tunnels，根据向导创建隧道并安装连接器
+
 **注意配置域时 URL 端口与 docker 容器映射的端口必须一致**
 
 ## SMTP 转发平台推荐
@@ -315,10 +319,10 @@ services:
 
 |设置项|功能|推荐值|备注|
 |:--:|:--:|:--:|:--:|
-|TRASH_AUTO_DELETE_DAYS|垃圾箱自动删除日期|90||
-|SIGNUPS_ALLOWED|允许注册|false|开启的话任何人都能注册|
+|TRASH_AUTO_DELETE_DAYS|自动删除回收站数据的延迟天数|90||
+|SIGNUPS_ALLOWED|允许注册|false|设置 true 时允许任何人注册|
 |INVITATIONS_ALLOWED|允许邀请|false|注册和邀请同时关闭后，只能通过管理员邀请来新增用户|
-|SHOW_PASSWORD_HINT|显示密码提示|false|可能会成为泄露密码的一个途径|
+|SHOW_PASSWORD_HINT|显示密码提示|false|设置 true 时可能会成为泄露密码的一个途径|
 
 
 ## 数据备份方案

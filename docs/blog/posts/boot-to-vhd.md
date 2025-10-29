@@ -3,11 +3,11 @@ date: 2024-11-05
 authors:
     - cntvc
 ---
-# 使用虚拟硬盘实现 Windows 多系统启动
+# 引导启动位于虚拟硬盘的 Windows 系统
 
 <!-- more -->
 
-使用 VHDX 虚拟硬盘制作一个 Windows 双系统，在启动时可以发挥全部机器性能，并且与磁盘中系统相互独立，互不影响。
+使用 VHDX 虚拟硬盘制作一个 Windows 双系统，在启动时可以完全发挥机器性能，并且与磁盘中其他系统相互独立，互不影响
 
 这里仅介绍以 UEFI 启动的电脑制作步骤，传统 BIOS 启动的电脑在引导时略有不同，详情见官网:[启动到虚拟硬盘：将 VHDX 或 VHD 添加到启动菜单](https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/boot-to-vhd--native-boot--add-a-virtual-hard-disk-to-the-boot-menu?view=windows-11)
 

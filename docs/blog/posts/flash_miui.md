@@ -15,7 +15,9 @@ authors:
 
 ## CN 官方正式版刷机包
 
-https://www.xiaomi.cn/post/37093637
+小米社区维护源：https://www.xiaomi.cn/post/37093637
+
+第三方维护源：https://hyperos.fans/
 
 ## 刷机问题汇总
 

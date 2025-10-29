@@ -172,5 +172,5 @@ function main(config, profileName) {
 
 尝试将域名替换为 `testingcf.jsdelivr.net`
 
-## Windows 热点共享 VPN 网络
+## 通过 Windows 热点共享 VPN 网络
 Clash 开启 TUN 模式，在控制面板-网络与共享中心-更改适配器设置，选择 Clash 创建的网络，属性-共享，勾选“允许其他网络用户通过此计算机的网络连接”，下面选择电脑创建的热点网络

@@ -81,9 +81,10 @@ plugins:
   - blog:
       post_date_format: yyyy-MM-dd
       post_url_date_format: yyyy/MM/dd
-      archive_date_format: yyyy-MM
       pagination_per_page: 10
       authors: true
+      blog_toc: true
+      archive_date_format: yyyy
   - tags:
       tags: false # 显示标签
 

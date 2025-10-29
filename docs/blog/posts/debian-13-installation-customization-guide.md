@@ -18,6 +18,7 @@ authors:
 ```bash
 sudo mount -o loop /path/debian-13-amd64-DVD-1.iso /mnt/debian-iso
 ```
+
 编辑 apt 源文件添加挂载的目录条目
 ```bash title="/etc/apt/source.list"
 deb [trusted=yes] file:/mnt/debian-iso trixie main contrib non-free non-free-firmware
@@ -33,6 +34,21 @@ APT::Install-Suggests "false";
 ```bash
 sudo apt install gnome-core
 ```
+
+1. 安装必要的中文字体
+```bash
+sudo apt install fonts-wqy-zenhei fonts-wqy-microhei fonts-noto-cjk
+
+# 中文文档，数据等
+sudo apt install task-chinese-s
+```
+
+6. 切换中文语言环境
+```bash
+sudo dpkg-reconfigure locales
+```
+
+这里选择 `zh_CN.UTF-8 UTF-8`
 
 ## 个性化配置
 
@@ -98,21 +114,36 @@ sudo update-grub
 将该过程保存为 sh 脚本文件并赋予可执行权限
 
 ```bash
+# script.sh
 echo 60 > /sys/class/power_supply/BAT0/charge_control_end_threshold
-```
 
-```bash
 sudo crontab -e
 # 自定义脚本路径
 @reboot /path/to/script.sh
 ```
 
-### 安装 Neovim 并设置为默认编辑器
+或者使用 systemd 管理
+
+```bash title="/etc/systemd/system/battery-charge-limit.service"
+[Unit]
+Description=Set Battery Charge Limit to 60%
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "echo 60 | tee /sys/class/power_supply/BAT0/charge_control_end_threshold"
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### 安装 Neovim
 
 ```bash
 sudo apt install neovim
 
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 40
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 30
 sudo apt remove vim-tiny nano
 ```
 
@@ -134,6 +165,9 @@ sudo apt-get install ibus-rime
 
 git clone --depth 1 https://github.com/iDvel/rime-ice
 ```
+
+下载后将雾凇拼音文件移动到 `~/.config/ibus/rime` 目录，然后重新部署 `ibus restart`
+
 
 ## 安装问题及解决方案
 
