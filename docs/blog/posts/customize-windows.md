@@ -10,9 +10,9 @@ authors:
 
 ## 系统优化
 
-### [移除 8.3 遗留的短文件名](https://schneegans.de/windows/no-8.3/)
+### [移除 8.3 短文件名](https://schneegans.de/windows/no-8.3/)
 
-最好在系统释放后未进入oobe阶段前进行清理，否则可能由于系统运行，这些文件名不可避免的积累在注册表中导致无法安全删除
+此操作最好在系统释放后且未进入 OOBE 阶段前进行，否则可能由于系统运行，这些文件名不可避免的积累在注册表中导致无法将其安全删除
 
 ```powershell
 fsutil 8dot3name query C:
@@ -44,7 +44,7 @@ reg export "HKCU\Environment" user_env.reg
 ```
 
 ### 组策略
-需要下载微软官方的 [LGPO 工具](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+组策略备份需要下载微软官方的 [LGPO 工具](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 
 ```powershell
 # 导出策略
@@ -73,3 +73,12 @@ Windows Registry Editor Version 5.00
 "InputPanelPageLastOpenTime"=hex(b):00,bb,42,7a,00,00,00,00
 "TouchKeyboardHasEverShown"=dword:00000000
 ```
+
+## 第三方工具推荐
+
+|名称|简介|
+|:--:|:--:|
+|[winutil](https://github.com/ChrisTitusTech/winutil)|pwsh脚本，可简化安装、清理程序，配置更新等|
+|[Microsoft Activation Scripts](https://massgrave.dev/)|Windows、Office 激活脚本|
+|[MSMG Toolkit](https://msmgtoolkit.in/)|使用 dism 工具修改镜像包的命令行工具|
+|[unattend-generator](https://schneegans.de/windows/unattend-generator/)|Windows 无人值守配置文件可视化生成网站|

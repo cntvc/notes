@@ -3,7 +3,7 @@ date: 2024-11-05
 authors:
     - cntvc
 ---
-# 引导启动位于虚拟硬盘的 Windows 系统
+# 引导并启动位于虚拟硬盘的 Windows 系统
 
 <!-- more -->
 

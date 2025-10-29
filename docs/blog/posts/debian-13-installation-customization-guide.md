@@ -18,7 +18,6 @@ authors:
 ```bash
 sudo mount -o loop /path/debian-13-amd64-DVD-1.iso /mnt/debian-iso
 ```
-
 编辑 apt 源文件添加挂载的目录条目
 ```bash title="/etc/apt/source.list"
 deb [trusted=yes] file:/mnt/debian-iso trixie main contrib non-free non-free-firmware
@@ -35,7 +34,7 @@ APT::Install-Suggests "false";
 sudo apt install gnome-core
 ```
 
-1. 安装必要的中文字体
+5. 安装必要的中文字体
 ```bash
 sudo apt install fonts-wqy-zenhei fonts-wqy-microhei fonts-noto-cjk
 
@@ -47,7 +46,6 @@ sudo apt install task-chinese-s
 ```bash
 sudo dpkg-reconfigure locales
 ```
-
 这里选择 `zh_CN.UTF-8 UTF-8`
 
 ## 个性化配置
@@ -144,7 +142,7 @@ WantedBy=multi-user.target
 sudo apt install neovim
 
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 30
-sudo apt remove vim-tiny nano
+sudo apt remove vim-tiny
 ```
 
 ### Gnome 常用插件
